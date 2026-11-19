@@ -1,21 +1,28 @@
 import "./App.css";
 import { sistema, servers, avvisi } from "./dati";
 import { statoServer, contaPerStato, cpuMedia, piuLento, trovaServer } from "./calcoli";
+import Intestazione from "./Intestazione";
+import Riepilogo from "./Riepilogo";
 
 function App() {
-  console.log(servers.length, avvisi.length);
-  console.log(statoServer(servers[0]), statoServer(servers[1]), statoServer(servers[2]));
-  console.log(statoServer(servers[3]), statoServer(servers[4]), statoServer(servers[5]));
-  console.log(contaPerStato(servers, "ok"), contaPerStato(servers, "attenzione"));
-  console.log(contaPerStato(servers, "critico"), contaPerStato(servers, "offline"));
-  console.log(cpuMedia(servers));
-  console.log(piuLento(servers).nome, piuLento(servers).latenza);
-  console.log(trovaServer(servers, "db-01").ip);
-  console.log(trovaServer(servers, "web-09"));
+const online = servers.filter((s) => s.online).length;
 
   return (
     <div className="pannello">
-      <h1>{sistema.nome}</h1>
+      <Intestazione
+        nome={sistema.nome}
+        aggiornato={sistema.aggiornato}
+        online={online}
+        totale={servers.length}
+      />
+      <Riepilogo
+        ok={contaPerStato(servers, "ok")}
+        attenzione={contaPerStato(servers, "attenzione")}
+        critici={contaPerStato(servers, "critico")}
+        offline={contaPerStato(servers, "offline")}
+        mediaCpu={cpuMedia(servers)}
+        lento={piuLento(servers)}
+      />
     </div>
   );
 }
