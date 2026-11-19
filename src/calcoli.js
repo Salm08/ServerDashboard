@@ -16,3 +16,23 @@ export function statoServer(server) {
 export function contaPerStato(servers, stato) {
   return servers.filter((s) => statoServer(s) === stato).length;
 }
+
+export function cpuMedia(servers) {
+  const accesi = servers.filter((s) => s.online);
+  if (accesi.length === 0) return null;
+
+  const somma = accesi.reduce((acc, s) => acc + s.cpu, 0);
+  return somma / accesi.length;
+}
+
+export function piuLento(servers) {
+  const accesi = servers.filter((s) => s.online);
+  return accesi.reduce(
+    (max, s) => (max === null || s.latenza > max.latenza ? s : max),
+    null
+  );
+}
+
+export function trovaServer(servers, nome) {
+  return servers.find((s) => s.nome === nome);
+}
