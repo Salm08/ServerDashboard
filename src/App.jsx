@@ -3,6 +3,8 @@ import { sistema, servers, avvisi } from "./dati";
 import { statoServer, contaPerStato, cpuMedia, piuLento, trovaServer } from "./calcoli";
 import Intestazione from "./Intestazione";
 import Riepilogo from "./Riepilogo";
+import SchedaServer from "./SchedaServer";
+
 
 function App() {
 const online = servers.filter((s) => s.online).length;
@@ -22,6 +24,9 @@ const online = servers.filter((s) => s.online).length;
         offline={contaPerStato(servers, "offline")}
         mediaCpu={cpuMedia(servers)}
         lento={piuLento(servers)}
+      />
+      <SchedaServer
+        server={servers[5]}
       />
     </div>
   );
