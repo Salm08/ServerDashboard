@@ -3,7 +3,7 @@ import { sistema, servers, avvisi } from "./dati";
 import { statoServer, contaPerStato, cpuMedia, piuLento, trovaServer } from "./calcoli";
 import Intestazione from "./Intestazione";
 import Riepilogo from "./Riepilogo";
-import SchedaServer from "./SchedaServer";
+import GrigliaServer from "./GrigliaServer";
 
 
 function App() {
@@ -25,9 +25,7 @@ const online = servers.filter((s) => s.online).length;
         mediaCpu={cpuMedia(servers)}
         lento={piuLento(servers)}
       />
-      <SchedaServer
-        server={servers[5]}
-      />
+      <GrigliaServer servers={servers} />
     </div>
   );
 }
