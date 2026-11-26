@@ -4,10 +4,13 @@ import { statoServer, contaPerStato, cpuMedia, piuLento, trovaServer } from "./c
 import Intestazione from "./Intestazione";
 import Riepilogo from "./Riepilogo";
 import GrigliaServer from "./GrigliaServer";
-
+import ServerInEvidenza from "./ServerInEvidenza";
+import Avvisi from "./Avvisi";
 
 function App() {
 const online = servers.filter((s) => s.online).length;
+const cercato = "db-01";
+const serverTrovato = trovaServer(servers, cercato);
 
   return (
     <div className="pannello">
@@ -26,6 +29,8 @@ const online = servers.filter((s) => s.online).length;
         lento={piuLento(servers)}
       />
       <GrigliaServer servers={servers} />
+      <ServerInEvidenza cercato={cercato} server={serverTrovato} />
+      <Avvisi elenco={avvisi} />
     </div>
   );
 }
